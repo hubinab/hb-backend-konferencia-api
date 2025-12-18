@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRegistrationRequest;
 use App\Http\Requests\UpdateRegistrationRequest;
 use App\Http\Resources\RegistrationResource;
 use App\Models\Registration;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
@@ -51,5 +52,11 @@ class RegistrationController extends Controller
     public function destroy(Registration $registration): Response
     {
         return $registration->delete() ? response('Sikeres törlés', 204) : abort(500);
+    }
+
+    public function count(): JsonResponse
+    {
+        $count = Registration::count();
+        return response()->json(["data" => $count]);
     }
 }

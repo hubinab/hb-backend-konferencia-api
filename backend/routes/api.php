@@ -10,3 +10,4 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource("/registrations",RegistrationController::class)
     ->whereNumber('registration')
 ;
+Route::get('/registrations/count',[RegistrationController::class,"count"])->name("registrations.count");
