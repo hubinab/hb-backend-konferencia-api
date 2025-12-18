@@ -65,7 +65,7 @@ class RegistrationController extends Controller
      */
     public function destroy(Registration $registration): Response
     {
-        return $registration->delete() ? response('Sikeres törlés', 204) : abort(500);
+        return $registration->delete() ? response()->noContent() : abort(500);
     }
 
     public function count(): JsonResponse
