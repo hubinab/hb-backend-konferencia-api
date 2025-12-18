@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateRegistrationRequest;
 use App\Http\Resources\RegistrationResource;
 use App\Models\Registration;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
@@ -15,9 +16,22 @@ class RegistrationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResource
+    public function index(Request $request): JsonResource
     {
-        return RegistrationResource::collection(Registration::all());
+        if (!in_array($orderBy = $request->query("orderBy"), ["name", "date", null]))
+            abort(404);
+
+        if (!in_array($order = $request->query("order"), ["asc", "desc", null]))
+            abort(404);
+
+        if ($orderBy === null and $order !==null) 
+            abort(404);
+        
+        if ($orderBy !== null) {
+            $order = $order ?? "asc";
+            return RegistrationResource::collection(Registration::query()->orderBy($orderBy, $order)->get());
+        } 
+        else return RegistrationResource::collection(Registration::all());
     }
 
     /**
