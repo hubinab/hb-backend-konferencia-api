@@ -8,6 +8,13 @@ A rendszer inicializálását és az első indítását a `start.sh` script vég
 ```bash
 ./start.sh
 ```
+```
+docker compose exec backend fish
+```
+majd bent a backend konténerben:
+```
+php artisan migrate:fresh --seed
+```
 
 ## Leállítás
 
