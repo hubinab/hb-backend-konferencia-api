@@ -17,7 +17,7 @@ class RegistrationResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "vegetarian" => $this->vegetarian,
+            "vegetarian" => $this->vegetarian == 0 ? false : true,
             "date" => $this->date,
             "arrived" => $this->arrived            
         ];

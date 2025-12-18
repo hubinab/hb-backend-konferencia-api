@@ -11,7 +11,7 @@ class StoreRegistrationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreRegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'between:1,40'],
+            'vegetarian' => ['required', 'boolean'],
+            'date' => ['required','date_format:Y-m-d'],
+            'arrived' => ['nullable', 'date_format:H:i:s','after_or_equal:08:00:00','before_or_equal:14:00:00'],
         ];
     }
 }

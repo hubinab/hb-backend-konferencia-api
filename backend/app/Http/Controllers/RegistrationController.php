@@ -22,9 +22,9 @@ class RegistrationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRegistrationRequest $request)
+    public function store(StoreRegistrationRequest $request): JsonResource
     {
-        //
+        return new RegistrationResource(Registration::create($request->validated()));
     }
 
     /**
@@ -38,9 +38,11 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRegistrationRequest $request, Registration $registration)
+    public function update(UpdateRegistrationRequest $request, Registration $registration): JsonResource
     {
-        //
+        $data = $request->validated();
+        $registration->update($data);
+        return new RegistrationResource($registration);
     }
 
     /**
